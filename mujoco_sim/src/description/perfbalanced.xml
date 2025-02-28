@@ -1,0 +1,39 @@
+<mujoco model="perfbalanced">
+    <compiler inertiafromgeom="true"/>
+    <option timestep="0.002" gravity="0 0 -9.81"/>
+
+    <worldbody>
+        <!-- Floor --> 
+        <body name="floor" pos="0 0 0" >
+            <geom type="plane" size="0 0 0.1" rgba="0.7 0.7 0.7 1"/>
+            <light/>
+        </body>
+        <!-- Base Body -->
+        <body name="base" pos="0 0 0.5">
+            <geom type="box" size="0.1 0.05 0.2" rgba="1 0 0 1"/>
+            <joint name="base_joint" type="free"/>
+            <light/>
+
+            <!-- Left Wheel -->
+            <body name="left_wheel" pos="-0.15 0 -0.2" euler="0 90 0">
+                <joint name="left_wheel_joint" type="hinge" axis="0 0 1"/>
+                <geom type="cylinder" size="0.1 0.05" rgba="0 1 0 1"/>
+                <light/>
+            </body>
+            <!-- Right Wheel -->
+            <body name="right_wheel" pos="0.15 0 -0.2" euler="0 90 0">
+                <joint name="right_wheel_joint" type="hinge" axis="0 0 1"/>
+                <geom type="cylinder" size="0.1 0.05" rgba="0 0 1 1"/>
+                <light/>
+            </body>
+        </body>
+    </worldbody>
+
+    <!-- Actuator -->
+    <actuator>
+        <motor joint="left_wheel_joint" ctrlrange="-100 100"/>
+    </actuator>
+    <actuator>
+        <motor joint="right_wheel_joint" ctrlrange="-100 100"/>
+    </actuator>
+</mujoco>
